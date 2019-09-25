@@ -118,7 +118,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/sign_up_button"
         android:backgroundTint="@color/mdb_yellow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -128,7 +128,6 @@
         android:layout_marginBottom="8dp"
         android:text="@string/begin"
         android:textStyle="bold"
-        android:onClick="onClickBegin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
