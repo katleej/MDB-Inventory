@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MDB-Inventory</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="login">Log in to Start</string>
+    <string name="no_account">No account? Sign up here</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="begin">LET\'S GO\!</string>
+    <string name="enter">log in</string>
+</resources>
