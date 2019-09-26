@@ -1,19 +1,22 @@
 package com.hfad.mdb_inventory;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private CloudAuthenticator cloudAuthenticator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cloudAuthenticator = new CloudAuthenticator(this);
+
         setContentView(R.layout.activity_login);
-        Button button = (Button) findViewById(R.id.login);
+        Button button = findViewById(R.id.login);
         button.setOnClickListener(this);
     }
 
@@ -25,12 +28,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.login:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
-
 
             default:
                 break;
