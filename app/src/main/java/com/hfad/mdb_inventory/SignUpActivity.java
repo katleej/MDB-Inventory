@@ -85,6 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Boolean> task) {
                 progressBar.setVisibility(View.INVISIBLE);
                 if (task.isSuccessful()) {
+                    new CloudDatabase().finishUserRegistration(cloudAuthenticator.getCurrentUser(),nameText.getText().toString());
                     Toast.makeText(SignUpActivity.this,"Welcome!",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
