@@ -3,7 +3,6 @@ package com.hfad.mdb_inventory;
 import android.app.Activity;
 import android.content.Context;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,6 +23,10 @@ public class CloudAuthenticator {
         private CloudUser(FirebaseUser firebaseUser) {
             this.firebaseUser = firebaseUser;
         }
+
+        public String getID() {
+            return firebaseUser.getUid();
+        }
     }
 
     private FirebaseAuth mAuth;
@@ -34,10 +37,7 @@ public class CloudAuthenticator {
         FirebaseApp.initializeApp(context);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentFBUser =  mAuth.getCurrentUser();
-        if (currentFBUser != null) {
-            currentUser = new CloudUser(currentFBUser);
-        }
+        retranslateUser();
     }
 
 
@@ -45,12 +45,26 @@ public class CloudAuthenticator {
         return currentUser;
     }
 
+    private void retranslateUser() {
+        FirebaseUser currentFBUser =  mAuth.getCurrentUser();
+        if (currentFBUser != null) {
+            currentUser = new CloudUser(currentFBUser);
+        }else {
+            currentUser = null;
+        }
+    }
+
     public boolean isUserSignedIn() {
         return getCurrentUser() != null;
     }
 
     public void createUserWithEmailAndPassword(String email, String password, OnCompleteListener<Boolean> onCompleteListener) {
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(translateFromFirebaseOnComplete(onCompleteListener));
+        mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                retranslateUser();
+            }
+        }).addOnCompleteListener(translateFromFirebaseOnComplete(onCompleteListener));
     }
 
     public void signInWithEmailAndPassword(String email, String password, OnCompleteListener<Boolean> onCompleteListener) {
