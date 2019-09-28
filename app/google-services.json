@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "520956633413",
+    "firebase_url": "https://mdbmoneybook.firebaseio.com",
+    "project_id": "mdbmoneybook",
+    "storage_bucket": "mdbmoneybook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520956633413:android:d4c412ae5ac1e3aaa29e2c",
+        "android_client_info": {
+          "package_name": "com.hfad.mdb_inventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520956633413-3mtf12ia5dc7nc0hum9glqo5lcvjta3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hfad.mdb_inventory",
+            "certificate_hash": "5a4845f77593223505e5b8dcf3c73c11d6693f79"
+          }
+        },
+        {
+          "client_id": "520956633413-6enlqph27qmkl58h4odoip5j7s40n3qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_Mvy5gSkybu07kyANngYCg6ikEpLEEqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520956633413-6enlqph27qmkl58h4odoip5j7s40n3qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
