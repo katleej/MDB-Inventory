@@ -22,27 +22,34 @@
         android:padding="16dp">
 
         <EditText
+            android:id="@+id/item"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="12dp"
             android:hint="  Item Name: " />
 
         <EditText
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:textSize="12dp"
-            android:hint="  Date: " />
+            android:hint="  Date: "
+            android:clickable="true"
+            android:focusable="false"
+            android:textSize="12dp" />
 
         <EditText
+            android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="12dp"
             android:hint="  Purchased From: " />
 
         <EditText
+            android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="12dp"
+            android:inputType="numberDecimal"
             android:hint="  Price: " />
     </LinearLayout>
 
@@ -68,9 +75,13 @@
 
         <EditText
             android:id="@+id/description"
+            android:textStyle="italic"
+            android:hint="Give a brief description of your purchase if needed"
+            android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:textSize="12dp"
             android:background="@drawable/description_box"/>
 
         <LinearLayout
@@ -83,10 +94,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textSize="16dp"
+                android:textSize="12dp"
                 android:text="Image:"/>
 
             <ImageButton
+                android:id="@+id/add_image_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:backgroundTint="@android:color/background_light"
@@ -96,6 +108,7 @@
 
 
         <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
@@ -104,6 +117,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"

@@ -1,7 +1,36 @@
 package com.hfad.mdb_inventory;
 
+import java.util.UUID;
+
 public class Model {
-    private String price, name, location, item;
+    private String price;
+    private String name;
+    private String location;
+    private String item;
+    private String imageURL;
+    private String description;
+    private String date;
+    /**
+     * UID is used for locating and tracking purchases. When creating a new purchase, generate a random UID
+     * when deserializing, restore the UID over this property
+     */
+    private String uid = UUID.randomUUID().toString();
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 
     public String getPrice() {
         return price;
@@ -33,5 +62,21 @@ public class Model {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

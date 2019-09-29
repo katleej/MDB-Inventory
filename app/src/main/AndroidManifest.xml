@@ -13,7 +13,6 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".IndividualPurchseActivity"></activity>
         <activity android:name=".AddNewActivity" />
-        <activity android:name=".ClickIndividualActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity
