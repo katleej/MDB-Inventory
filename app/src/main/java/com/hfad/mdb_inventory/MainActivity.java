@@ -3,6 +3,7 @@ package com.hfad.mdb_inventory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mTextMessage;
     private ArrayList<Model> models;
 
@@ -36,22 +37,31 @@ public class MainActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MyAdapter adapter = new MyAdapter(this, models);
-        recyclerView.setAdapter(adapter);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            BottomNavigationView navView = findViewById(R.id.nav_view);
+            mTextMessage = findViewById(R.id.message);
+            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            RecyclerView recyclerView = findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            MyAdapter adapter = new MyAdapter(this, models);
+            recyclerView.setAdapter(adapter);
+        }
 
+
+        public void recieveModel(ArrayList<Model> data) {
+            
+        }
+
+        @Override
+        public void onClick(View view) {
+
+        }
 
     }
-
-}
