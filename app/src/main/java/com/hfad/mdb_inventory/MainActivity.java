@@ -3,6 +3,7 @@ package com.hfad.mdb_inventory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mTextMessage;
     private ArrayList<Model> models;
+    FloatingActionButton floaty;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+
         }
     };
 
@@ -46,12 +50,31 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //define floaty
+        floaty = findViewById(R.id.floating_button);
+        floaty.bringToFront();
+        floaty.setOnClickListener(this);
+
+        //setting MainActivity with recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        models = ModelArray.models;
         MyAdapter adapter = new MyAdapter(this, models);
         recyclerView.setAdapter(adapter);
+    }
 
+
+    public void recieveModel(ArrayList<Model> data) {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.floating_button:
+                Intent intent = new Intent(this, AddNewActivity.class);
+                startActivity(intent);
+        }
+    }
 }
