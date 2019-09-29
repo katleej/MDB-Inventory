@@ -75,7 +75,6 @@
 
         <EditText
             android:id="@+id/description"
-            android:textStyle="italic"
             android:hint="Give a brief description of your purchase if needed"
             android:gravity="top"
             android:layout_width="match_parent"
@@ -105,7 +104,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/image" />
         </LinearLayout>
-
 
         <ImageView
             android:id="@+id/image"

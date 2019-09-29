@@ -46,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         location = models.get(i).getLocation();
 
         myHolder.item.setText(item);
-        myHolder.price.setText(price);
+        myHolder.price.setText("$" + price);
         myHolder.purchaser.setText(purchaser);
         myHolder.location.setText(location);
         Glide.with(myHolder.image.getContext()).load(image).into(myHolder.image);

@@ -30,7 +30,7 @@ public class IndividualPurchseActivity extends AppCompatActivity {
         item.setText("Item: " + _item);
         date.setText("Date: " + _date);
         location.setText("From: " + _location);
-        price.setText(_price);
+        price.setText("$" + _price);
         description.setText(_description);
     }
 }
