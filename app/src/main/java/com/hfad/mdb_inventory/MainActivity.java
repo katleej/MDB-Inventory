@@ -39,11 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     return true;
-                case R.id.navigation_dashboard:
-                    return false;
-                case R.id.navigation_notifications:
-                    Intent intent2 = new Intent(getApplicationContext(), StatsActivity.class);
-                    startActivity(intent2);
+                case R.id.navigation_statistics:
+                    Intent statIntents = new Intent(getApplicationContext(), StatisticsActivity.class);
+                    startActivity(statIntents);
+                    return true;
             }
             return false;
 
