@@ -25,10 +25,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * Displays a list of purchases, allowing searching, adding, and drilling down for more info
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private ArrayList<Model> models;
+    private ArrayList<PurchaseModel> purchaseModels;
     private FloatingActionButton floaty;
-    private MyAdapter recycleViewAdapter;
+    private PurchaseAdapter recycleViewAdapter;
     private ProgressBar progressBar;
     private EditText searchBar;
     private CloudDatabase cloudDatabase;
@@ -76,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setting MainActivity with recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        models = ModelArray.models;
-        recycleViewAdapter = new MyAdapter(this, models);
+        purchaseModels = new ArrayList<>();
+        recycleViewAdapter = new PurchaseAdapter(this, purchaseModels);
         recyclerView.setAdapter(recycleViewAdapter);
 
         searchBar = findViewById(R.id.search);
@@ -88,10 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void beginModelFetch() {
         progressBar.setVisibility(View.VISIBLE);
-        cloudDatabase.getPurchases(new OnSuccessListener<ArrayList<Model>>() {
+        cloudDatabase.getPurchases(new OnSuccessListener<ArrayList<PurchaseModel>>() {
             @Override
-            public void onSuccess(ArrayList<Model> models) {
-                receiveModel(models);
+            public void onSuccess(ArrayList<PurchaseModel> purchaseModels) {
+                receiveModel(purchaseModels);
                 progressBar.setVisibility(View.INVISIBLE);
             }
         }, new OnFailureListener() {
@@ -104,35 +107,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void beingModelSearch(String search) {
-        receiveSearchedModel(models,search);
+        receiveSearchedModel(purchaseModels,search);
         SharedPreferences.Editor editor = getSharedPreferences("SearchConstants", Context.MODE_PRIVATE).edit();
         editor.putString("last_search", search);
         editor.apply();
     }
 
-    private void receiveSearchedModel(ArrayList<Model> data, String string) {
-        this.models = data;
-        ArrayList<Model> filtered_data = new ArrayList<Model>();
+    private void receiveSearchedModel(ArrayList<PurchaseModel> data, String string) {
+        this.purchaseModels = data;
+        ArrayList<PurchaseModel> filtered_data = new ArrayList<PurchaseModel>();
         for (int i = 0; i < data.size(); i++) {
-            String item = models.get(i).getDescription();
+            String item = purchaseModels.get(i).getDescription();
             if (item.contains(string)) {
-                filtered_data.add(models.get(i));
+                filtered_data.add(purchaseModels.get(i));
             }
         }
 
-        recycleViewAdapter.models = filtered_data;
+        recycleViewAdapter.purchaseModels = filtered_data;
         recycleViewAdapter.notifyDataSetChanged();
     }
 
-    private void receiveModel(ArrayList<Model> data) {
-        this.models = data;
-        recycleViewAdapter.models = data;
+    private void receiveModel(ArrayList<PurchaseModel> data) {
+        this.purchaseModels = data;
+        recycleViewAdapter.purchaseModels = data;
         recycleViewAdapter.notifyDataSetChanged();
     }
 
-    private void insertNewModel(Model model) {
+    private void insertNewModel(PurchaseModel purchaseModel) {
         progressBar.setVisibility(View.VISIBLE);
-        cloudDatabase.pushPurchase(model, new OnCompleteListener<Void>() {
+        cloudDatabase.pushPurchase(purchaseModel, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressBar.setVisibility(View.INVISIBLE);
@@ -149,13 +152,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        models.add(model);
-        receiveModel(recycleViewAdapter.models);
+        purchaseModels.add(purchaseModel);
+        receiveModel(purchaseModels);
     }
 
-    private void removeModel(Model model) {
-        models.remove(model);
-        receiveModel(models);
+    private void removeModel(PurchaseModel purchaseModel) {
+        purchaseModels.remove(purchaseModel);
+        receiveModel(purchaseModels);
 
     }
 
@@ -176,19 +179,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
         if (resultCode == RESULT_OK) {
-            Object modelQQ = data.getSerializableExtra("model");
-            if (!(modelQQ instanceof Model)) {
+            Object modelQQ = data.getSerializableExtra("purchaseModel");
+            if (!(modelQQ instanceof PurchaseModel)) {
                 return;
             }
-            Model model = (Model)modelQQ;
-            insertNewModel(model);
+            PurchaseModel purchaseModel = (PurchaseModel)modelQQ;
+            insertNewModel(purchaseModel);
         }else if (resultCode == IndividualPurchseActivity.DELETE_PURCHASE) {
-            Object modelQQ = data.getSerializableExtra("model");
-            if (!(modelQQ instanceof Model)) {
+            Object modelQQ = data.getSerializableExtra("purchaseModel");
+            if (!(modelQQ instanceof PurchaseModel)) {
                 return;
             }
-            Model model = (Model)modelQQ;
-            removeModel(model);
+            PurchaseModel purchaseModel = (PurchaseModel)modelQQ;
+            removeModel(purchaseModel);
         }
     }
 }

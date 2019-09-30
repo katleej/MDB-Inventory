@@ -10,12 +10,22 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
+/**
+ * Abstracted access to file based cloud storage backend
+ * (currently uses Firebase)
+ */
 public class CloudStorage {
     private FirebaseStorage storage;
     public CloudStorage() {
         storage = FirebaseStorage.getInstance();
     }
 
+    /**
+     * Upload a file from disk to the cloud, getting an http URL
+     * @param path The file path to upload
+     * @param successListener success callback
+     * @param onFailureListener failure callback
+     */
     public void upload(Uri path, final OnSuccessListener<String> successListener, final OnFailureListener onFailureListener) {
         final StorageReference storageReference = storage.getReference("/pictures/" + UUID.randomUUID().toString() + ".jpeg");
         storageReference.putFile(path).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

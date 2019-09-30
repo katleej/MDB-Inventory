@@ -5,7 +5,10 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class Model implements Serializable {
+/**
+ * Models a purchase
+ */
+public class PurchaseModel implements Serializable {
     private String price;
     private String location;
     private String item;
@@ -77,6 +80,6 @@ public class Model implements Serializable {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return (obj instanceof Model) && ((Model)obj).getUid().equals(uid);
+        return (obj instanceof PurchaseModel) && ((PurchaseModel)obj).getUid().equals(uid);
     }
 }

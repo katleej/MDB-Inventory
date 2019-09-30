@@ -16,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * Program entry point
+ * Used for signing a new user in
+ * If the user is already signed in, passes them through automatically to the gated portion of the app
+ */
 public class LoginActivity extends AppCompatActivity {
     private CloudAuthenticator cloudAuthenticator;
 

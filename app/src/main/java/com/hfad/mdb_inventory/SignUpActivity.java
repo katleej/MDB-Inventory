@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * Allows the creation of new accounts, forwards to MainActivity
+ */
 public class SignUpActivity extends AppCompatActivity {
     private CloudAuthenticator cloudAuthenticator;
 

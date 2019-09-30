@@ -6,6 +6,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Fetches, calculatues, and displays basic statistics about the data set
+ */
 class StatisticsActivity : AppCompatActivity() {
     lateinit var purchaseCountText:TextView
     lateinit var purchaseSumText:TextView

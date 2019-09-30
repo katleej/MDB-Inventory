@@ -26,6 +26,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Activity for adding a new purchase
+ * Returns a serialized purchaseModel object through intent key "purchaseModel"
+ */
 public class AddNewActivity extends AppCompatActivity implements View.OnClickListener {
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog datePickerDialog;
@@ -42,7 +46,7 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
-        //Calling all Views
+        //Linking all Views
         image = findViewById(R.id.image);
         item = findViewById(R.id.item);
         date = findViewById(R.id.date);
@@ -98,17 +102,17 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
                 if (!checkingInputs()) {
                     Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    //if all fields are complete, create a new model
-                    Model model = new Model();
-                    model.setItem(item.getText().toString());
-                    model.setLocation(location.getText().toString());
-                    model.setDescription(description.getText().toString());
-                    model.setPrice(price.getText().toString());
-                    model.setDate(date.getText().toString());
-                    model.setImageURL(uploadedImageURL);
+                    //if all fields are complete, create a new purchaseModel
+                    PurchaseModel purchaseModel = new PurchaseModel();
+                    purchaseModel.setItem(item.getText().toString());
+                    purchaseModel.setLocation(location.getText().toString());
+                    purchaseModel.setDescription(description.getText().toString());
+                    purchaseModel.setPrice(price.getText().toString());
+                    purchaseModel.setDate(date.getText().toString());
+                    purchaseModel.setImageURL(uploadedImageURL);
 
                     Intent goBackToMain = new Intent();
-                    goBackToMain.putExtra("model",model);
+                    goBackToMain.putExtra("purchaseModel", purchaseModel);
                     setResult(RESULT_OK,goBackToMain);
                     finish();
                 }
@@ -155,7 +159,7 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         } else {
-            Toast.makeText(this, "Incorrect requestcode", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrect request code", Toast.LENGTH_SHORT).show();
         }
     }
 

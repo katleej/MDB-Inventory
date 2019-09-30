@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Abstracted access to the authentication backend
+ * (currently uses Firebase)
+ */
 public class CloudAuthenticator {
     public class CloudUser {
         private FirebaseUser firebaseUser;

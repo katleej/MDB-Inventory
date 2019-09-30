@@ -13,15 +13,18 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
+/**
+ * Displays an array of purchases as cards
+ */
+public class PurchaseAdapter extends RecyclerView.Adapter<MyHolder> {
     Activity c;
-    ArrayList<Model> models;
+    ArrayList<PurchaseModel> purchaseModels;
     View view;
     ViewGroup viewGroup;
 
-    public MyAdapter(Activity c, ArrayList<Model> models) {
+    public PurchaseAdapter(Activity c, ArrayList<PurchaseModel> purchaseModels) {
         this.c = c;
-        this.models = models;
+        this.purchaseModels = purchaseModels;
     }
 
     @NonNull
@@ -35,19 +38,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder myHolder, int i) {
-        final Model model = models.get(i);
+        final PurchaseModel purchaseModel = purchaseModels.get(i);
 
-        myHolder.item.setText(model.getItem());
-        myHolder.price.setText("$" + model.getPrice());
-        myHolder.location.setText(model.getLocation());
-        Glide.with(myHolder.image.getContext()).load(model.getImageURL()).into(myHolder.image);
+        myHolder.item.setText(purchaseModel.getItem());
+        myHolder.price.setText("$" + purchaseModel.getPrice());
+        myHolder.location.setText(purchaseModel.getLocation());
+        Glide.with(myHolder.image.getContext()).load(purchaseModel.getImageURL()).into(myHolder.image);
 
 
         myHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
                 Intent intent = new Intent(c, IndividualPurchseActivity.class);
-                intent.putExtra("model", model);
+                intent.putExtra("purchaseModel", purchaseModel);
                 c.startActivityForResult(intent,0);
             }
         });
@@ -55,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
     @Override
     public int getItemCount() {
-        return models.size();
+        return purchaseModels.size();
     }
 
 }

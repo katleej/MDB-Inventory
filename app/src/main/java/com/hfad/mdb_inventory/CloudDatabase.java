@@ -52,24 +52,24 @@ public class CloudDatabase {
      * @param successListener Call back with purchases
      * @param onFailureListener Call back on error
      */
-    public void getPurchases(final OnSuccessListener<ArrayList<Model>> successListener, OnFailureListener onFailureListener) {
+    public void getPurchases(final OnSuccessListener<ArrayList<PurchaseModel>> successListener, OnFailureListener onFailureListener) {
         db.collection("purchases").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                ArrayList<Model> purchases = new ArrayList<>();
+                ArrayList<PurchaseModel> purchases = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     try {
-                        Model model = new Model();
+                        PurchaseModel purchaseModel = new PurchaseModel();
 
-                        model.setUid(document.getId());
-                        model.setPrice((String)document.get("price"));
-                        model.setItem((String)document.get("item"));
-                        model.setLocation((String)document.get("purchase_location"));
-                        model.setDescription((String)document.get("item_description"));
-                        model.setImageURL((String)document.get("image_url"));
-                        model.setDate((String)document.get("date"));
+                        purchaseModel.setUid(document.getId());
+                        purchaseModel.setPrice((String)document.get("price"));
+                        purchaseModel.setItem((String)document.get("item"));
+                        purchaseModel.setLocation((String)document.get("purchase_location"));
+                        purchaseModel.setDescription((String)document.get("item_description"));
+                        purchaseModel.setImageURL((String)document.get("image_url"));
+                        purchaseModel.setDate((String)document.get("date"));
 
-                        purchases.add(model);
+                        purchases.add(purchaseModel);
                     }catch (NullPointerException | ClassCastException e) {
                         e.printStackTrace();
                     }
@@ -84,7 +84,7 @@ public class CloudDatabase {
      * @param purchase The purchase to push
      * @param onCompleteListener Callback on either failure or success
      */
-    public void pushPurchase(Model purchase, OnCompleteListener<Void> onCompleteListener) {
+    public void pushPurchase(PurchaseModel purchase, OnCompleteListener<Void> onCompleteListener) {
         Map<String, Object> purchaseMap = new HashMap<>();
         purchaseMap.put("price",purchase.getPrice());
         purchaseMap.put("item",purchase.getItem());
@@ -101,7 +101,7 @@ public class CloudDatabase {
      * @param purchase The purchase to remove
      * @param onCompleteListener Callback on either failure or success
      */
-    public void deletePurcahse(Model purchase, OnCompleteListener<Void> onCompleteListener) {
+    public void deletePurchase(PurchaseModel purchase, OnCompleteListener<Void> onCompleteListener) {
         db.collection("purchases").document(purchase.getUid()).delete().addOnCompleteListener(onCompleteListener);
     }
 }

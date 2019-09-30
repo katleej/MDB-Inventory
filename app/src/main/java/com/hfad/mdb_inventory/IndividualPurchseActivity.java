@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 
 public class IndividualPurchseActivity extends AppCompatActivity {
     public static final int DELETE_PURCHASE = 191;
-    Model model;
+    PurchaseModel purchaseModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,26 +29,26 @@ public class IndividualPurchseActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.individual_description);
 
         Intent intent = getIntent();
-        model = (Model)intent.getSerializableExtra("model");
+        purchaseModel = (PurchaseModel)intent.getSerializableExtra("purchaseModel");
 
-        item.setText("Item: " + model.getItem());
-        date.setText("Date: " + model.getDate());
-        location.setText("From: " + model.getLocation());
-        price.setText("$" + model.getPrice());
-        String url = model.getImageURL();
+        item.setText("Item: " + purchaseModel.getItem());
+        date.setText("Date: " + purchaseModel.getDate());
+        location.setText("From: " + purchaseModel.getLocation());
+        price.setText("$" + purchaseModel.getPrice());
+        String url = purchaseModel.getImageURL();
         if (url != null) {
             Glide.with(findViewById(R.id.individual_image).getContext()).load(url).into((ImageView)findViewById(R.id.individual_image));
         }
-        description.setText(model.getDescription());
+        description.setText(purchaseModel.getDescription());
     }
 
     public void deleteClicked(View view) {
-        new CloudDatabase().deletePurcahse(model, new OnCompleteListener<Void>() {
+        new CloudDatabase().deletePurchase(purchaseModel, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Intent deleteIntent = new Intent();
-                    deleteIntent.putExtra("model",model);
+                    deleteIntent.putExtra("purchaseModel", purchaseModel);
                     IndividualPurchseActivity.this.setResult(DELETE_PURCHASE,deleteIntent);
                     IndividualPurchseActivity.this.finish();
                 }else {
