@@ -124,6 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         receiveModel(recycleViewAdapter.models);
     }
 
+    private void removeModel(Model model) {
+        models.remove(model);
+        receiveModel(models);
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -143,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             Model model = (Model)modelQQ;
             insertNewModel(model);
+        }else if (resultCode == IndividualPurchseActivity.DELETE_PURCHASE) {
+            Object modelQQ = data.getSerializableExtra("model");
+            if (!(modelQQ instanceof Model)) {
+                return;
+            }
+            Model model = (Model)modelQQ;
+            removeModel(model);
         }
     }
 }

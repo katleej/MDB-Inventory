@@ -1,5 +1,7 @@
 package com.hfad.mdb_inventory;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -71,5 +73,10 @@ public class Model implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return (obj instanceof Model) && ((Model)obj).getUid().equals(uid);
     }
 }

@@ -88,6 +88,13 @@
             android:scaleType="fitCenter"
             android:src="@drawable/no_image"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_purchase"
+            android:textColor="#F44336"
+            android:onClick="deleteClicked"/>
+
     </LinearLayout>
 
 

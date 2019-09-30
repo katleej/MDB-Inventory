@@ -1,6 +1,6 @@
 package com.hfad.mdb_inventory;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +14,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
-    Context c;
+    Activity c;
     ArrayList<Model> models;
     View view;
     ViewGroup viewGroup;
 
-    public MyAdapter(Context c, ArrayList<Model> models) {
+    public MyAdapter(Activity c, ArrayList<Model> models) {
         this.c = c;
         this.models = models;
     }
@@ -48,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             public void onItemClickListener(View view, int position) {
                 Intent intent = new Intent(c, IndividualPurchseActivity.class);
                 intent.putExtra("model", model);
-                c.startActivity(intent);
+                c.startActivityForResult(intent,0);
             }
         });
     }
