@@ -105,3 +105,5 @@ public class CloudDatabase {
         db.collection("purchases").document(purchase.getUid()).delete().addOnCompleteListener(onCompleteListener);
     }
 }
+
+
