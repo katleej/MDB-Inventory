@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -96,6 +97,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private void beingModelSearch(String search) {
+        progressBar.setVisibility(View.VISIBLE);
+        final String _search = search;
+        cloudDatabase.getPurchases(new OnSuccessListener<ArrayList<Model>>() {
+            @Override
+            public void onSuccess(ArrayList<Model> models) {
+                receiveSearchedModel(models,_search);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        }, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(MainActivity.this, e.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void receiveSearchedModel(ArrayList<Model> data, String string) {
+        this.models = data;
+        ArrayList<Model> filtered_data = new ArrayList<Model>();
+        for (int i = 0; i < data.size(); i++) {
+            String item = models.get(i).getItem();
+            if (item.contains(string)) {
+                filtered_data.add(models.get(i));
+            }
+        }
+
+        recycleViewAdapter.models = filtered_data;
+        recycleViewAdapter.notifyDataSetChanged();
+    }
+
     private void receiveModel(ArrayList<Model> data) {
         this.models = data;
         recycleViewAdapter.models = data;
@@ -137,6 +170,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.floating_button:
                 Intent intent = new Intent(this, AddNewActivity.class);
                 startActivityForResult(intent,0);
+            case R.id.search_button:
+                EditText search = (EditText) findViewById(R.id.search);
+                String search_input = search.getText().toString();
+                beingModelSearch(search_input);
+
         }
     }
 
