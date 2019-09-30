@@ -1,6 +1,8 @@
 package com.hfad.mdb_inventory;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton floaty;
     private MyAdapter recycleViewAdapter;
     private ProgressBar progressBar;
+    private EditText searchBar;
     private CloudDatabase cloudDatabase;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         floaty.bringToFront();
         floaty.setOnClickListener(this);
 
+        findViewById(R.id.search_button ).setOnClickListener(this);
+
         progressBar = findViewById(R.id.progressBar);
 
         //setting MainActivity with recyclerview
@@ -75,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recycleViewAdapter = new MyAdapter(this, models);
         recyclerView.setAdapter(recycleViewAdapter);
 
+        searchBar = findViewById(R.id.search);
+        searchBar.setText(getSharedPreferences("SearchConstants", Context.MODE_PRIVATE).getString("last_search",""));
 
         beginModelFetch();
     }
@@ -97,28 +104,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void beingModelSearch(String search) {
-        progressBar.setVisibility(View.VISIBLE);
-        final String _search = search;
-        cloudDatabase.getPurchases(new OnSuccessListener<ArrayList<Model>>() {
-            @Override
-            public void onSuccess(ArrayList<Model> models) {
-                receiveSearchedModel(models,_search);
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        }, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(MainActivity.this, e.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
+        receiveSearchedModel(models,search);
+        SharedPreferences.Editor editor = getSharedPreferences("SearchConstants", Context.MODE_PRIVATE).edit();
+        editor.putString("last_search", search);
+        editor.apply();
     }
 
     private void receiveSearchedModel(ArrayList<Model> data, String string) {
         this.models = data;
         ArrayList<Model> filtered_data = new ArrayList<Model>();
         for (int i = 0; i < data.size(); i++) {
-            String item = models.get(i).getItem();
+            String item = models.get(i).getDescription();
             if (item.contains(string)) {
                 filtered_data.add(models.get(i));
             }
@@ -170,8 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, AddNewActivity.class);
                 startActivityForResult(intent,0);
             case R.id.search_button:
-                EditText search = (EditText) findViewById(R.id.search);
-                String search_input = search.getText().toString();
+                String search_input = searchBar.getText().toString();
                 beingModelSearch(search_input);
 
         }
