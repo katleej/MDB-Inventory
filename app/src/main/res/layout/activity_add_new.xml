@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddNewActivity"
     android:background="@color/mdb_blue">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/box1"
                 android:layout_width="match_parent"
@@ -30,32 +36,32 @@
                     android:id="@+id/item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:hint="@string/item_name" />
+                    android:hint="@string/item_name"
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date"
                     android:clickable="true"
                     android:focusable="true"
+                    android:hint="Date"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:hint="@string/purchased_from" />
+                    android:hint="@string/purchased_from"
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:hint="@string/price"
                     android:inputType="numberDecimal"
-                    android:hint="@string/price" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -65,25 +71,25 @@
                 android:layout_margin="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:radius="10dp"
                 android:background="@drawable/shape"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:radius="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="@string/description_text"/>
+                    android:text="@string/description_text"
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/description"
-                    android:hint="@string/description_hint"
-                    android:gravity="top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:background="@drawable/description_box"/>
+                    android:background="@drawable/description_box"
+                    android:gravity="top"
+                    android:hint="@string/description_hint"
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -94,8 +100,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:text="@string/image_header"/>
+                        android:text="@string/image_header"
+                        android:textSize="12sp" />
 
                     <ImageButton
                         android:id="@+id/add_image_button"
@@ -118,15 +124,27 @@
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:layout_gravity="center"
-                android:textSize="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_weight="0.1"
                 android:backgroundTint="@color/mdb_yellow"
-                android:text="Add"/>
+                android:text="Add"
+                android:textSize="16dp" />
         </LinearLayout>
 
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/MyProgressBarCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

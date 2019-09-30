@@ -85,7 +85,7 @@
             android:id="@+id/individual_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:scaleType="center"
+            android:scaleType="fitCenter"
             android:src="@drawable/no_image"/>
 
     </LinearLayout>

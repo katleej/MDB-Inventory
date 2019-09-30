@@ -12,9 +12,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -22,13 +27,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddNewActivity extends AppCompatActivity implements View.OnClickListener {
-    Uri uri;
     final Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog datePickerDialog;
     EditText item, date, location, price, description;
     ImageView image;
     Button save_button;
     ImageButton image_button;
+    String uploadedImageURL;
+    private ProgressBar progressBar;
     private static final String TAG = MainActivity.class.getSimpleName();
     private ArrayList<EditText> editTextArrayList = new ArrayList<>();
 
@@ -45,6 +51,7 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
         description = findViewById(R.id.description);
         image_button = findViewById(R.id.add_image_button);
         save_button = findViewById(R.id.save);
+        progressBar = findViewById(R.id.progressBar);
         image_button.setOnClickListener(this);
         save_button.setOnClickListener(this);
 
@@ -54,6 +61,7 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
         editTextArrayList.add(location);
         editTextArrayList.add(price);
         editTextArrayList.add(description);
+
 
         //Setting Calendar on date
         date.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +100,12 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     //if all fields are complete, create a new model
                     Model model = new Model();
-                    model.setImageURL("https://tinyurl.com/y57fdmx7"); //this is default image should be a link later
                     model.setItem(item.getText().toString());
                     model.setLocation(location.getText().toString());
                     model.setDescription(description.getText().toString());
                     model.setPrice(price.getText().toString());
                     model.setDate(date.getText().toString());
+                    model.setImageURL(uploadedImageURL);
 
                     Intent goBackToMain = new Intent();
                     goBackToMain.putExtra("model",model);
@@ -124,8 +132,23 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                uri = imageUri;
-                image.setImageBitmap(selectedImage);
+
+                progressBar.setVisibility(View.VISIBLE);
+                new CloudStorage().upload(imageUri, new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        image.setImageBitmap(selectedImage);
+                        uploadedImageURL = s;
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(AddNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "file not found", Toast.LENGTH_SHORT).show();

@@ -2,9 +2,12 @@ package com.hfad.mdb_inventory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 public class IndividualPurchseActivity extends AppCompatActivity {
 
@@ -26,6 +29,10 @@ public class IndividualPurchseActivity extends AppCompatActivity {
         date.setText("Date: " + model.getDate());
         location.setText("From: " + model.getLocation());
         price.setText("$" + model.getPrice());
+        String url = model.getImageURL();
+        if (url != null) {
+            Glide.with(findViewById(R.id.individual_image).getContext()).load(url).into((ImageView)findViewById(R.id.individual_image));
+        }
         description.setText(model.getDescription());
     }
 }
