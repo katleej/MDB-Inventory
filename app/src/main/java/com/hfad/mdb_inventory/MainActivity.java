@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.navigation_dashboard:
                     return false;
                 case R.id.navigation_notifications:
-                    return false;
+                    Intent intent2 = new Intent(getApplicationContext(), StatsActivity.class);
+                    startActivity(intent2);
             }
             return false;
 
