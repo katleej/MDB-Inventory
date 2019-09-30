@@ -1,18 +1,15 @@
 package com.hfad.mdb_inventory;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Model {
+public class Model implements Serializable {
     private String price;
-    private String name;
     private String location;
     private String item;
     private String imageURL;
-<<<<<<< HEAD
-=======
     private String description;
     private String date;
->>>>>>> katniss
     /**
      * UID is used for locating and tracking purchases. When creating a new purchase, generate a random UID
      * when deserializing, restore the UID over this property
@@ -34,10 +31,6 @@ public class Model {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> katniss
 
     public String getPrice() {
         return price;
@@ -47,13 +40,6 @@ public class Model {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getLocation() {
         return location;

@@ -24,10 +24,26 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button loginButton;
 
+    /**
+     * This is set to true when this activity is skipped when the user launches the app while signed in
+      */
+    private boolean didRedirectUserThroughLoginScreen = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cloudAuthenticator = new CloudAuthenticator(this);
+
+        if (cloudAuthenticator.isUserSignedIn()) {
+            didRedirectUserThroughLoginScreen = true;
+            //The user is already signed in, skip the login entry point and continue straight to authenticated entry
+            Intent intent = new Intent(this, MainActivity.class);
+            //replace this activity so the back button quits
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(intent);
+            finishActivity(0);
+            return;
+        }
 
         setContentView(R.layout.activity_login);
 
@@ -37,6 +53,15 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login);
 
         setupTextWatchers();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //if the user launched the app while signed in, this activity is transparently hidden. Pass this activity.
+        if (didRedirectUserThroughLoginScreen) {
+            this.finish();
+        }
     }
 
     private void setupTextWatchers() {

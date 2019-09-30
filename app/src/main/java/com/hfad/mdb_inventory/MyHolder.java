@@ -20,7 +20,6 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
         this.item = itemView.findViewById(R.id.card_item);
         this.location = itemView.findViewById(R.id.card_location);
         this.price = itemView.findViewById(R.id.card_price);
-        this.purchaser = itemView.findViewById(R.id.card_purchaser);
         itemView.setOnClickListener(this);
     }
 

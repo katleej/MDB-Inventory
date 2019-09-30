@@ -63,10 +63,11 @@ public class CloudDatabase {
 
                         model.setUid(document.getId());
                         model.setPrice((String)document.get("price"));
-                        model.setName((String)document.get("name"));
+                        model.setItem((String)document.get("item"));
                         model.setLocation((String)document.get("purchase_location"));
-                        model.setItem((String)document.get("item_description"));
+                        model.setDescription((String)document.get("item_description"));
                         model.setImageURL((String)document.get("image_url"));
+                        model.setDate((String)document.get("date"));
 
                         purchases.add(model);
                     }catch (NullPointerException | ClassCastException e) {
@@ -86,10 +87,11 @@ public class CloudDatabase {
     public void pushPurchase(Model purchase, OnCompleteListener<Void> onCompleteListener) {
         Map<String, Object> purchaseMap = new HashMap<>();
         purchaseMap.put("price",purchase.getPrice());
-        purchaseMap.put("name",purchase.getName());
+        purchaseMap.put("item",purchase.getItem());
         purchaseMap.put("purchase_location",purchase.getLocation());
-        purchaseMap.put("item_description",purchase.getItem());
+        purchaseMap.put("item_description",purchase.getDescription());
         purchaseMap.put("image_url",purchase.getImageURL());
+        purchaseMap.put("date",purchase.getDate());
 
         db.collection("purchases").document(purchase.getUid()).set(purchaseMap).addOnCompleteListener(onCompleteListener);
     }

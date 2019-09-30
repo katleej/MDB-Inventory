@@ -1,7 +1,5 @@
 package com.hfad.mdb_inventory;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -96,15 +96,13 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
                     model.setItem(item.getText().toString());
                     model.setLocation(location.getText().toString());
                     model.setDescription(description.getText().toString());
-                    model.setName("User's name"); //This one will be received from Firebase based on User id
                     model.setPrice(price.getText().toString());
                     model.setDate(date.getText().toString());
 
-                    //add it to an array of ModelArray
-                    ModelArray.addModel(model);
-                    Toast.makeText(this, "Purchase history has been created successfully.", Toast.LENGTH_SHORT).show();
-                    Intent goBackToMain = new Intent(this, MainActivity.class);
-                    startActivity(goBackToMain);
+                    Intent goBackToMain = new Intent();
+                    goBackToMain.putExtra("model",model);
+                    setResult(RESULT_OK,goBackToMain);
+                    finish();
                 }
         }
     }
@@ -119,8 +117,8 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             try {
                 final Uri imageUri = data.getData();
@@ -136,6 +134,6 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             Toast.makeText(this, "Incorrect requestcode", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
 }

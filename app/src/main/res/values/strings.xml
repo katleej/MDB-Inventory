@@ -10,4 +10,10 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="begin">LET\'S GO\!</string>
     <string name="enter">log in</string>
+    <string name="purchased_from">Purchased From</string>
+    <string name="price">Price</string>
+    <string name="item_name">Item Name</string>
+    <string name="description_text">Description:</string>
+    <string name="description_hint">Give a brief description of your purchase if needed</string>
+    <string name="image_header">Image:</string>
 </resources>
