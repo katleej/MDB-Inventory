@@ -81,6 +81,9 @@ public class AddNewActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+        date.setFocusable(false);
+        date.setKeyListener(null);
+
     }
 
     @Override

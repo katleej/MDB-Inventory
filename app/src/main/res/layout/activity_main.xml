@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:id="@+id/linear"
+        android:background="@color/mdb_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -23,6 +24,8 @@
 
         <EditText
             android:id="@+id/search"
+            android:textColorHint="@android:color/background_light"
+            android:backgroundTint="@android:color/background_light"
             android:layout_width="299dp"
             android:layout_height="40dp"
             android:hint="search" />
@@ -31,6 +34,7 @@
             android:id="@+id/search_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:background="@android:color/transparent"
             android:src="@android:drawable/ic_menu_search"
             android:text="switch view"/>
 
@@ -39,51 +43,52 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="630dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear">
+        app:layout_constraintTop_toBottomOf="@+id/linear">
 
         <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/frameLayout"
-            app:layout_constraintEnd_toEndOf="@id/frameLayout"
-            app:layout_constraintStart_toStartOf="@id/frameLayout"
-            app:layout_constraintTop_toTopOf="@id/frameLayout"
-            tools:context=".MainActivity"></androidx.recyclerview.widget.RecyclerView>
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@id/frameLayout"
+        app:layout_constraintStart_toStartOf="@id/frameLayout"
+        app:layout_constraintTop_toTopOf="@id/frameLayout"
+        tools:context=".MainActivity"></androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/white_plus"
-            app:backgroundTint="@color/mdb_yellow"
-            app:fabCustomSize="50dp" />
+        android:id="@+id/floating_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/white_plus"
+        app:backgroundTint="@color/mdb_yellow"
+        app:fabCustomSize="50dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/MyProgressBarCircular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="invisible" />
+        android:id="@+id/progressBar"
+        style="@style/MyProgressBarCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
 
     </FrameLayout>
 
