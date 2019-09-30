@@ -17,4 +17,5 @@
     <string name="description_hint">Give a brief description of your purchase if needed</string>
     <string name="image_header">Image:</string>
     <string name="delete_purchase">Delete purchase</string>
+    <string name="search_inventory">Search inventory</string>
 </resources>

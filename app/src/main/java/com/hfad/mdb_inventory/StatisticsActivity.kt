@@ -1,10 +1,12 @@
 package com.hfad.mdb_inventory
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
  * Fetches, calculatues, and displays basic statistics about the data set
@@ -17,6 +19,9 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics)
+        val navView:BottomNavigationView = findViewById(R.id.nav_view)
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
         purchaseCountText = findViewById(R.id.purchaseCount)
         purchaseSumText = findViewById(R.id.purchaseSum)
         progressBar = findViewById(R.id.progressBar)
@@ -38,5 +43,21 @@ class StatisticsActivity : AppCompatActivity() {
             progressBar.visibility = View.INVISIBLE
             exception.printStackTrace()
         })
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_statistics -> {
+                val statIntents = Intent(applicationContext, StatisticsActivity::class.java)
+                startActivity(statIntents)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 }
